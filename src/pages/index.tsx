@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 import HeaderApp from "./header-app";
-import ChooseBrandSkeleton from "@/core/ui/templates/choose-brand/skeleton";
+import ChoosePlaceSkeleton from "@/core/ui/templates/choose-place/skeleton";
 
-const App = dynamic(async () => import('@/core/ui/index'), {
-  loading: ChooseBrandSkeleton,
+const ChoosePlace = dynamic(async () => import('@/core/ui/templates/choose-place'), {
+  loading: ChoosePlaceSkeleton,
   ssr: false
 })
 
@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
       <HeaderApp />
-      <App />
+      <ChoosePlace />
     </>
   );
 }
