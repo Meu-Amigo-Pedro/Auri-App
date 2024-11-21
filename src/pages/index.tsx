@@ -1,16 +1,19 @@
-import Head from "next/head";
+import dynamic from "next/dynamic";
+import HeaderApp from "./header-app";
+import ChooseBrandSkeleton from "@/core/ui/templates/choose-brand/skeleton";
 
-const App = () => {
+const App = dynamic(async () => import('@/core/ui/index'), {
+  loading: ChooseBrandSkeleton,
+  ssr: false
+})
+
+const HomePage = () => {
   return (
     <>
-      <Head>
-        <title>Auri</title>
-        <meta name="description" content="Seu passeio mais dinâmico!" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/auri-logo.svg" />
-      </Head>
+      <HeaderApp />
+      <App />
     </>
   );
 }
 
-export default App
+export default HomePage
