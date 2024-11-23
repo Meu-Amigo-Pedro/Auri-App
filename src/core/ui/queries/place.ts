@@ -1,6 +1,8 @@
 import { IPlaceGateway } from "@/core/infra/gateways/contracts/place"
 import { useDeps } from "../hooks/use-deps"
-import { useQuery } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import { Place } from "@/core/entities/place"
+import { AxiosError } from "axios"
 
 export const useGetPlaces = () => {
   const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
@@ -14,6 +16,93 @@ export const useGetPlaces = () => {
     data,
     error,
     isLoading,
+    isSuccess
+  }
+}
+
+type CreatePlace = {
+  place: Place
+}
+
+export const useCreatePlace = () => {
+  const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
+
+  const queryClient = useQueryClient()
+
+  const { isLoading, isError, error, isSuccess, mutate } = useMutation<void, AxiosError, CreatePlace, typeof placeGateway.create>(
+    async ({ place }) => {
+      await placeGateway.create(place)
+    },
+    {
+      onSuccess: (_, { place }) => {
+        queryClient.invalidateQueries(['getPlaces', place.id])
+      }
+    }
+  )
+
+  return {
+    createPlace: mutate,
+    isLoading,
+    isError,
+    error,
+    isSuccess
+  }
+}
+
+type UpdatePlace = {
+  place: Place
+}
+
+export const useUpdatePlace = () => {
+  const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
+
+  const queryClient = useQueryClient()
+
+  const { isLoading, isError, error, isSuccess, mutate } = useMutation<void, AxiosError, UpdatePlace, typeof placeGateway.update>(
+    async ({ place }) => {
+      await placeGateway.update(place)
+    },
+    {
+      onSuccess: (_, { place }) => {
+        queryClient.invalidateQueries(['getPlaces', place.id])
+      }
+    }
+  )
+
+  return {
+    updatePlace: mutate,
+    isLoading,
+    isError,
+    error,
+    isSuccess
+  }
+}
+
+type DeletePlace = {
+  place: Place
+}
+
+export const useDeletePlace = () => {
+  const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
+
+  const queryClient = useQueryClient()
+
+  const { isLoading, isError, error, isSuccess, mutate } = useMutation<void, AxiosError, DeletePlace, typeof placeGateway.delete>(
+    async ({ place }) => {
+      await placeGateway.delete(place)
+    },
+    {
+      onSuccess: (_, { place }) => {
+        queryClient.invalidateQueries(['getPlaces', place.id])
+      }
+    }
+  )
+
+  return {
+    deletePlace: mutate,
+    isLoading,
+    isError,
+    error,
     isSuccess
   }
 }

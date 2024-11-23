@@ -16,3 +16,15 @@ export class MapDTO {
       .withPictureWithGrid(dto.pictureWithGrid)
   }
 }
+
+export class UpdateMapDTO {
+  picture!: string
+  floor!: string
+
+  static fromMap (map: Map): UpdateMapDTO {
+    return {
+      floor: map.floor,
+      picture: map.picture
+    }
+  }
+}
