@@ -1,15 +1,11 @@
 import PlaceButton from '../../atoms/place-button'
 import { useGetPlaces } from '../../queries/place'
 import { Text } from '../../atoms/text/styles'
-import { Place } from '@/core/entities/place'
 import Header from '../../molecules/header'
 import MallIcon from '../../icons/mall'
-import { useState } from 'react'
 import * as S from './styles'
 
 const ChoosePlace = () => {
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null)
-
   const { data: places } = useGetPlaces()
 
   return (
@@ -47,8 +43,8 @@ const ChoosePlace = () => {
             key={`${place.id}-${index}`}
             placeLogo={place.logo}
             placeName={place.name}
-            isSelected={place.id === selectedPlace?.id}
-            onClick={() => { setSelectedPlace(place) }}
+            isSelected={false}
+            onClick={() => { window.open(`place/${place.id}`)}}
           />
         ))}
       </S.Container>

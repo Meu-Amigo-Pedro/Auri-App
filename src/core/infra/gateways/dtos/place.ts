@@ -14,6 +14,15 @@ export class PlaceDTO {
       .withLogo(dto.logo)
       .insertMaps(dto.maps.map(MapDTO.toMap))
   }
+
+  static fromPlace (place: Place): PlaceDTO {
+    return {
+      id: place.id,
+      logo: place.logo,
+      maps: place.maps.map(MapDTO.fromMap),
+      name: place.name
+    }
+  }
 }
 
 export class CreatePlaceDTO {

@@ -15,6 +15,16 @@ export class MapDTO {
       .withPicture(dto.picture)
       .withPictureWithGrid(dto.pictureWithGrid)
   }
+
+  static fromMap (map: Map): MapDTO {
+    return {
+      floor: map.floor,
+      id: map.id,
+      picture: map.picture,
+      pictureWithGrid: map.pictureWithGrid,
+      placeId: map.placeId
+    }
+  }
 }
 
 export class UpdateMapDTO {

@@ -14,29 +14,38 @@ export class PlaceGateway implements IPlaceGateway {
 
   async create (place: Place): Promise<void> {
     await this.httpClient.post({
-      url: `${this.BASE_URL}/places`,
+      url: `${this.BASE_URL}/place`,
       data: CreatePlaceDTO.fromPlace(place)
     })
   }
   async update (place: Place): Promise<void> {
-    await this.httpClient.post({
-      url: `${this.BASE_URL}/places`,
+    await this.httpClient.put({
+      url: `${this.BASE_URL}/place`,
       params: { id: place.id },
       data: UpdatePlaceDTO.fromPlace(place)
     })
   }
   async delete (place: Place): Promise<void> {
-    await this.httpClient.post({
-      url: `${this.BASE_URL}/places`,
+    await this.httpClient.delete({
+      url: `${this.BASE_URL}/placs`,
       params: { id: place.id },
     })
   }
 
   async getAll (): Promise<Place[]> {
     const dtos = await this.httpClient.get({
-      url: `${this.BASE_URL}/place`
+      url: `${this.BASE_URL}/place/all`
     })
 
     return dtos.map(PlaceDTO.toPlace)
+  }
+
+  async getOne (id: string): Promise<Place> {
+    const dto = await this.httpClient.get({
+      url: `${this.BASE_URL}/place`,
+      params: { id }
+    })
+
+    return PlaceDTO.toPlace(dto)
   }
 }

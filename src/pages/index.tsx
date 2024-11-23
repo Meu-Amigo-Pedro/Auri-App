@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 import HeaderApp from "./header-app";
-import ChoosePlaceSkeleton from "@/core/ui/templates/choose-place/skeleton";
+import LoadingSkeleton from "@/core/ui/molecules/skeleton";
 
-const ChoosePlace = dynamic(async () => import('@/core/ui/templates/choose-place'), {
-  loading: ChoosePlaceSkeleton,
-  ssr: false
-})
+const ChoosePlace = dynamic(async () => import("@/core/ui/templates/choose-place"), {
+  loading: LoadingSkeleton,
+  ssr: false,
+});
 
 const HomePage = () => {
   return (
@@ -14,6 +14,6 @@ const HomePage = () => {
       <ChoosePlace />
     </>
   );
-}
+};
 
-export default HomePage
+export default HomePage;
