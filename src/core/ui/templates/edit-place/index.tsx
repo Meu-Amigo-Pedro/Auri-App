@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Place } from "@/core/entities/place"
 import { Text } from '../../atoms/text/styles'
 import * as S from './styled'
@@ -9,12 +10,15 @@ import { useUpdatePlace } from "../../queries/place"
 import { Input } from "../../atoms/input"
 import { Button } from "../../atoms/button"
 import { Snackbar } from "@mui/material"
+import { useMemo } from "react"
 
 interface Props {
   place: Place
 }
 
 const EditPlace = ({ place: _place }: Props) => {
+  const oldPlace = useMemo(() => _place, [])
+
   const place = useMutableEntity(_place)
 
   const { updatePlace, isSuccess } = useUpdatePlace()
@@ -63,8 +67,8 @@ const EditPlace = ({ place: _place }: Props) => {
               label="Cancelar"
               onClick={() => {
                 place
-                  .withName(_place.name)
-                  .withLogo(_place.logo)
+                  .withName(oldPlace.name)
+                  .withLogo(oldPlace.logo)
               }}
               variant="gray"
             />
