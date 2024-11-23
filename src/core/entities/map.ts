@@ -5,6 +5,16 @@ export class Map {
   picture!: string
   pictureWithGrid!: string
 
+  static ofPlace (placeId: string) {
+    const map = new Map()
+
+    map.placeId = placeId
+    map.floor = ''
+    map.picture = '/black.png'
+
+    return map
+  }
+
   withId (id: string) {
     this.id = id
     return this

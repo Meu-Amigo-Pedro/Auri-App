@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 export type ButtonVariant = 'blue' | 'gray'
 
-export const ButtonContainer = styled(motion.div)<{ variant?: ButtonVariant}>`
+export const ButtonContainer = styled(motion.div)<{ variant?: ButtonVariant, width: string }>`
   cursor: pointer;
 
-  width: 8.4rem;
+  width: ${props => props.width};
   height: 4rem;
   
   display: flex;

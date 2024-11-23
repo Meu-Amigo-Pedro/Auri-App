@@ -1,8 +1,23 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 export const GlobalContainer = styled.div`
   width: 100vw;
   height: 100vh;
+
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: .1rem;
+  }
+`
+
+export const WrapperEditPlace = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+
+  width: 100%;
 `
 
 export const Container = styled.div`
@@ -32,4 +47,49 @@ export const ButtonsArea = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+`
+
+export const MapsList = styled.ul<{ hasOnlyOneChild?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  border-radius: .8rem;
+  width: 20rem;
+
+  box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.2);
+
+  li {
+    span {
+      font-family: Public Sans, sans-serif;
+      font-size: 1.4rem;
+    }
+
+    list-style-type: none;
+
+    cursor: pointer;
+
+    padding: 1rem;
+    
+    border-bottom: ${props => !props.hasOnlyOneChild ? '.1rem solid black' : 'none'};
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .icons-area {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  ${({ hasOnlyOneChild }) => !hasOnlyOneChild && css`
+    li:first-child {
+      border-radius: .8rem .8rem 0rem 0rem;
+    }
+
+    li:last-child {
+      border-radius: .0rem .0rem 8rem 8rem;
+
+      border-bottom: none;
+    }
+  `}
 `

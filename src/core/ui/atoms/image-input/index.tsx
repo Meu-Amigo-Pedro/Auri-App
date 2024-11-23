@@ -6,9 +6,11 @@ interface Props {
   onChange: (given: string) => void
 
   defaultImage: string
+
+  id: string
 }
 
-export const ImageInput = ({ defaultImage, onChange }: Props) => {
+export const ImageInput = ({ defaultImage, onChange, id }: Props) => {
   const [currentImage, setCurrentImage] = useState(defaultImage)
 
   const handleChangeFile = async (evt: ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +31,10 @@ export const ImageInput = ({ defaultImage, onChange }: Props) => {
 
   return (
     <>
-      <S.ImageLabel htmlFor="input-file">
+      <S.ImageLabel htmlFor={id}>
         <S.Image src={currentImage}/>
       </S.ImageLabel>
-      <S.FileInput id="input-file" onChange={handleChangeFile} type="file" />
+      <S.FileInput id={id} onChange={handleChangeFile} type="file" />
     </>
   )
 }

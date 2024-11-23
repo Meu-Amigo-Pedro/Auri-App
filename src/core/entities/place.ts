@@ -25,4 +25,10 @@ export class Place {
     this.maps = maps
     return this
   }
+
+  addMap (map: Map) {
+    this.maps.push(map)
+
+    return
+  }
 }

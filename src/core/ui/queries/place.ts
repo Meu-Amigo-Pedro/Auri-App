@@ -20,6 +20,23 @@ export const useGetPlaces = () => {
   }
 }
 
+export const useGetPlace = (id: string) => {
+  const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
+
+  const { data, isLoading, error, isSuccess } = useQuery(
+    ['getPlace', id],
+    async () => await placeGateway.getOne(id)
+  )
+
+  return {
+    data,
+    error,
+    isLoading,
+    isSuccess
+  }
+}
+
+
 type CreatePlace = {
   place: Place
 }
@@ -35,7 +52,8 @@ export const useCreatePlace = () => {
     },
     {
       onSuccess: (_, { place }) => {
-        queryClient.invalidateQueries(['getPlaces', place.id])
+        queryClient.invalidateQueries(['getPlace', place.id])
+        queryClient.invalidateQueries(['getPlaces'])
       }
     }
   )
@@ -64,7 +82,8 @@ export const useUpdatePlace = () => {
     },
     {
       onSuccess: (_, { place }) => {
-        queryClient.invalidateQueries(['getPlaces', place.id])
+        queryClient.invalidateQueries(['getPlace', place.id])
+        queryClient.invalidateQueries(['getPlaces'])
       }
     }
   )
@@ -93,7 +112,8 @@ export const useDeletePlace = () => {
     },
     {
       onSuccess: (_, { place }) => {
-        queryClient.invalidateQueries(['getPlaces', place.id])
+        queryClient.invalidateQueries(['getPlace', place.id])
+        queryClient.invalidateQueries(['getPlaces'])
       }
     }
   )
