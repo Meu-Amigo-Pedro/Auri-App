@@ -30,10 +30,27 @@ export const Container = styled.div`
 
 export const WrapperTitle = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
   padding: 5rem;
   width: 100%;
+
+  #go-back-tap {
+    position: fixed;
+    left: 4rem;
+  }
+
+  #go-back {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.8rem;
+    font-family: 'Public Sans';
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
+  }
 `
 
 export const Section = styled.section`

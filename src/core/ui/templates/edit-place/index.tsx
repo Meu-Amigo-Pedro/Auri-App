@@ -1,17 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Place } from "@/core/entities/place"
-import { Text } from '../../atoms/text/styles'
-import * as S from './styled'
-import Header from "../../molecules/header"
-import MallIcon from "../../icons/mall"
-import { ImageInput } from "../../atoms/image-input"
-import useMutableEntity from "../../hooks/use-mutable-entity"
 import { useGetPlace, useUpdatePlace } from "../../queries/place"
-import { Input } from "../../atoms/input"
-import { Button } from "../../atoms/button"
-import { Snackbar } from "@mui/material"
+import useMutableEntity from "../../hooks/use-mutable-entity"
 import { useEffect, useMemo, useState } from "react"
+import { ImageInput } from "../../atoms/image-input"
+import ArrowLeftIcon from "../../icons/arrow-left"
+import { Text } from "../../atoms/text/styles"
+import { Place } from "@/core/entities/place"
+import Header from "../../molecules/header"
+import { Button } from "../../atoms/button"
+import Tap from "../../atoms/animation/tap"
+import { Input } from "../../atoms/input"
+import { Snackbar } from "@mui/material"
+import MallIcon from "../../icons/mall"
 import AddMap from "./add-map"
+import * as S from "./styled"
+import Link from "next/link"
 
 interface Props {
   place: Place
@@ -45,6 +48,13 @@ const EditPlace = ({ place: _place }: Props) => {
       />
 
       <S.WrapperTitle>
+        <Tap id='go-back-tap'>
+          <Link id='go-back' href='/'>
+            <ArrowLeftIcon />
+            Voltar
+          </Link>
+        </Tap>
+
         <Text
           as='h1'
           size={3.2}

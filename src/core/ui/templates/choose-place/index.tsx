@@ -3,9 +3,12 @@ import { useGetPlaces } from '../../queries/place'
 import { Text } from '../../atoms/text/styles'
 import Header from '../../molecules/header'
 import MallIcon from '../../icons/mall'
+import { useRouter } from 'next/router'
 import * as S from './styles'
 
 const ChoosePlace = () => {
+  const router = useRouter()
+
   const { data: places } = useGetPlaces()
 
   return (
@@ -44,7 +47,7 @@ const ChoosePlace = () => {
             placeLogo={place.logo}
             placeName={place.name}
             isSelected={false}
-            onClick={() => { window.open(`place/${place.id}`)}}
+            onClick={() => { router.push(`/place/${place.id}`) }}
           />
         ))}
       </S.Container>
