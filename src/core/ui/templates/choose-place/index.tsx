@@ -1,15 +1,17 @@
 import PlaceButton from '../../atoms/place-button'
-import { useGetPlaces } from '../../queries/place'
 import { Text } from '../../atoms/text/styles'
 import Header from '../../molecules/header'
 import MallIcon from '../../icons/mall'
 import { useRouter } from 'next/router'
 import * as S from './styles'
+import { Place } from '@/core/entities/place'
 
-const ChoosePlace = () => {
+interface Props {
+  places: Place[]
+}
+
+const ChoosePlace = ({ places }: Props) => {
   const router = useRouter()
-
-  const { data: places } = useGetPlaces()
 
   return (
     <S.GlobalContainer>

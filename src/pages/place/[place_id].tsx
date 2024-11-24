@@ -6,7 +6,6 @@ import LoadingSkeleton from "@/core/ui/molecules/skeleton";
 import {  GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { iocContainer } from "@/core/ioc";
 import { IPlaceGateway } from "@/core/infra/gateways/contracts/place";
-import { Place } from "@/core/entities/place";
 import { PlaceDTO } from "@/core/infra/gateways/dtos/place";
 
 const EditPlace = dynamic(async () => import('@/core/ui/templates/edit-place'), {
@@ -16,6 +15,15 @@ const EditPlace = dynamic(async () => import('@/core/ui/templates/edit-place'), 
 
 interface Props {
   place: PlaceDTO
+}
+
+const EditPlacePage = ({ place }: Props) => {
+  return (
+    <>
+      <HeaderApp />
+      <EditPlace place={PlaceDTO.toPlace(place)} />
+    </>
+  );
 }
 
 export async function getServerSideProps ({ params }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
@@ -38,15 +46,6 @@ export async function getServerSideProps ({ params }: GetServerSidePropsContext)
       }
     }
   }
-}
-
-const EditPlacePage = ({ place }: Props) => {
-  return (
-    <>
-      <HeaderApp />
-      <EditPlace place={PlaceDTO.toPlace(place)} />
-    </>
-  );
 }
 
 export default EditPlacePage

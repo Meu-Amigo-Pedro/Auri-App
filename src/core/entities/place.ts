@@ -28,7 +28,6 @@ export class Place {
 
   addMap (map: Map) {
     this.maps.push(map)
-
-    return
+    return this
   }
 }
