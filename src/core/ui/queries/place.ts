@@ -25,7 +25,11 @@ export const useGetPlace = (id: string) => {
 
   const { data, isLoading, error, isSuccess } = useQuery(
     ['getPlace', id],
-    async () => await placeGateway.getOne(id)
+    async () => await placeGateway.getOne(id),
+    { 
+      retry: true,
+      enabled: !!id
+    }
   )
 
   return {

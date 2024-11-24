@@ -10,11 +10,11 @@ import Header from "../../molecules/header"
 import { Button } from "../../atoms/button"
 import Tap from "../../atoms/animation/tap"
 import { Input } from "../../atoms/input"
-import { Snackbar } from "@mui/material"
 import MallIcon from "../../icons/mall"
 import AddMap from "./add-map"
 import * as S from "./styled"
 import Link from "next/link"
+import SnackBar from "../../molecules/snackbar"
 
 interface Props {
   place: Place
@@ -29,7 +29,7 @@ const EditPlace = ({ place: _place }: Props) => {
 
   const { data: updatedPlace } = useGetPlace(place.id)
 
-  const { updatePlace, isSuccess } = useUpdatePlace()
+  const { updatePlace, isSuccess, isLoading } = useUpdatePlace()
 
   useEffect(() => {
     if (!updatedPlace) return
@@ -138,7 +138,19 @@ const EditPlace = ({ place: _place }: Props) => {
         }
       </S.WrapperEditPlace>
 
-      {isSuccess && <Snackbar autoHideDuration={2000} message={'Atualização concluída'}/>}
+      {isLoading && (
+        <SnackBar 
+          message='Atualizando...'
+          type='loading'
+        />
+      )}
+
+      {isSuccess && (
+        <SnackBar 
+          message='Atualização concluída'
+          type='success'
+        />
+      )}
 
       {addingMap && 
         <AddMap 
