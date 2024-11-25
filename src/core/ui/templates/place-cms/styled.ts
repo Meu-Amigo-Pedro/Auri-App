@@ -53,6 +53,14 @@ export const WrapperTitle = styled.div`
   }
 `
 
+export const WrapperTitleAndSubtitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+`
+
 export const Section = styled.section`
   display: flex;
   flex-direction: column;

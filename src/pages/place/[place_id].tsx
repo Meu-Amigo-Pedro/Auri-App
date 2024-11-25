@@ -8,7 +8,7 @@ import { iocContainer } from "@/core/ioc";
 import { IPlaceGateway } from "@/core/infra/gateways/contracts/place";
 import { PlaceDTO } from "@/core/infra/gateways/dtos/place";
 
-const EditPlace = dynamic(async () => import('@/core/ui/templates/edit-place'), {
+const PlaceCms = dynamic(async () => import('@/core/ui/templates/place-cms'), {
   loading: LoadingSkeleton,
   ssr: false
 })
@@ -21,7 +21,7 @@ const EditPlacePage = ({ place }: Props) => {
   return (
     <>
       <HeaderApp />
-      <EditPlace place={PlaceDTO.toPlace(place)} />
+      <PlaceCms place={PlaceDTO.toPlace(place)} />
     </>
   );
 }

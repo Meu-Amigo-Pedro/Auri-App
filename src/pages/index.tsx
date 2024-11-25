@@ -37,11 +37,7 @@ export async function getServerSideProps (): Promise<GetServerSidePropsResult<Ho
     }
   } catch (error) {
     return {
-      props: { places: [] },
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
+      props: { places: [] }
     }
   }
 }

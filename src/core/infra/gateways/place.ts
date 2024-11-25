@@ -27,7 +27,7 @@ export class PlaceGateway implements IPlaceGateway {
   }
   async delete (place: Place): Promise<void> {
     await this.httpClient.delete({
-      url: `${this.BASE_URL}/placs`,
+      url: `${this.BASE_URL}/place`,
       params: { id: place.id },
     })
   }

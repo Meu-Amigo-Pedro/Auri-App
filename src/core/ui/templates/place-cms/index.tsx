@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useGetPlace, useUpdatePlace } from "../../queries/place"
+import { useCreatePlace, useDeletePlace, useGetPlace, useUpdatePlace } from "../../queries/place"
 import useMutableEntity from "../../hooks/use-mutable-entity"
 import { useEffect, useMemo, useState } from "react"
 import { ImageInput } from "../../atoms/image-input"
 import ArrowLeftIcon from "../../icons/arrow-left"
+import SnackBar from "../../molecules/snackbar"
 import { Text } from "../../atoms/text/styles"
 import { Place } from "@/core/entities/place"
 import Header from "../../molecules/header"
@@ -14,14 +15,18 @@ import MallIcon from "../../icons/mall"
 import AddMap from "./add-map"
 import * as S from "./styled"
 import Link from "next/link"
-import SnackBar from "../../molecules/snackbar"
+import { useRouter } from "next/router"
 
 interface Props {
-  place: Place
+  place?: Place
 }
 
-const EditPlace = ({ place: _place }: Props) => {
+const PlaceCms = ({ place: givenPlace }: Props) => {
+  const router = useRouter()
   const [addingMap, setAddingMap] = useState(false)
+
+  const isEditing = !!givenPlace
+  const _place = isEditing ? givenPlace : Place.Create()
 
   const oldPlace = useMemo(() => _place, [])
 
@@ -29,7 +34,9 @@ const EditPlace = ({ place: _place }: Props) => {
 
   const { data: updatedPlace } = useGetPlace(place.id)
 
-  const { updatePlace, isSuccess, isLoading } = useUpdatePlace()
+  const { createPlace, isSuccess: isSuccessCreate, isLoading: isLoadingCreate } = useCreatePlace()
+  const { updatePlace, isSuccess: isSuccessUpdate, isLoading: isLoadingUpdate } = useUpdatePlace()
+  const { deletePlace, isSuccess: isSuccessDelete, isLoading: isLoadingDelete } = useDeletePlace()
 
   useEffect(() => {
     if (!updatedPlace) return
@@ -40,6 +47,18 @@ const EditPlace = ({ place: _place }: Props) => {
       .insertMaps(updatedPlace.maps)
   }, [updatePlace])
 
+  useEffect(() => {
+    if (!isSuccessCreate) return
+
+    router.push('/')
+  }, [isSuccessCreate])
+
+  useEffect(() => {
+    if (!isSuccessDelete) return
+
+    router.push('/')
+  }, [isSuccessDelete])
+
   return (
     <S.GlobalContainer>
       <Header 
@@ -48,22 +67,40 @@ const EditPlace = ({ place: _place }: Props) => {
       />
 
       <S.WrapperTitle>
-        <Tap id='go-back-tap'>
-          <Link id='go-back' href='/'>
-            <ArrowLeftIcon />
-            Voltar
-          </Link>
-        </Tap>
+        {isEditing && (
+          <Tap id='go-back-tap'>
+            <Link id='go-back' href='/'>
+              <ArrowLeftIcon />
+              Voltar
+            </Link>
+          </Tap>
+        )}
 
-        <Text
-          as='h1'
-          size={3.2}
-          fontFamily='Public Sans'
-          weight={700}
-          lineHeight={4}
-        >
-          Editando local
-        </Text>
+        <S.WrapperTitleAndSubtitle>
+          <Text
+            as='h1'
+            size={3.2}
+            fontFamily='Public Sans'
+            weight={700}
+            lineHeight={4}
+          >
+            {isEditing && 'Editando local'}
+            {!isEditing && 'Adicione um Local'}
+          </Text>
+
+          {!isEditing && (
+            <Text
+              as='h2'
+              size={1.6}
+              fontFamily='Public Sans'
+              weight={400}
+              lineHeight={2.4}
+              color="#121417"
+            >
+              Esse local pode ser um shopping, uma faculdade ou qualquer tipo de ambiente fechado.
+            </Text>
+          )}
+        </S.WrapperTitleAndSubtitle>
       </S.WrapperTitle>
 
       <S.WrapperEditPlace>
@@ -102,7 +139,19 @@ const EditPlace = ({ place: _place }: Props) => {
               <Button 
                 label="Confirmar"
                 onClick={() => {
+                  if (!isEditing) {
+                    createPlace({ place })
+                    return
+                  }
+
                   updatePlace({ place })
+                }}
+              />
+              <Button 
+                label="Deletar"
+                variant="red"
+                onClick={() => {
+                  deletePlace({ place })
                 }}
               />
             </S.ButtonsArea>
@@ -138,16 +187,44 @@ const EditPlace = ({ place: _place }: Props) => {
         }
       </S.WrapperEditPlace>
 
-      {isLoading && (
+      {isLoadingCreate && (
         <SnackBar 
-          message='Atualizando...'
+          message='Criando local...'
           type='loading'
         />
       )}
 
-      {isSuccess && (
+      {isLoadingUpdate && (
+        <SnackBar 
+          message='Atualizando local...'
+          type='loading'
+        />
+      )}
+
+      {isLoadingDelete && (
+        <SnackBar 
+          message='Deletando local...'
+          type='loading'
+        />
+      )}
+
+      {isSuccessCreate && (
+        <SnackBar 
+          message='Criação concluída'
+          type='success'
+        />
+      )}
+
+      {isSuccessUpdate && (
         <SnackBar 
           message='Atualização concluída'
+          type='success'
+        />
+      )}
+
+      {isSuccessDelete && (
+        <SnackBar 
+          message='Deleção concluída'
           type='success'
         />
       )}
@@ -164,4 +241,4 @@ const EditPlace = ({ place: _place }: Props) => {
   )
 }
 
-export default EditPlace
+export default PlaceCms

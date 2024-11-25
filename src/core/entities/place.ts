@@ -1,3 +1,4 @@
+import * as uuid from 'uuid'
 import { Map } from './map'
 
 export class Place {
@@ -5,6 +6,17 @@ export class Place {
   name!: string
   logo!: string
   maps!: Map[]
+
+  static Create () {
+    const place = new Place()
+
+    place.id = uuid.v4()
+    place.name = ''
+    place.logo = '/black.png'
+    place.maps = []
+
+    return place
+  }
 
   withId (id: string) {
     this.id = id

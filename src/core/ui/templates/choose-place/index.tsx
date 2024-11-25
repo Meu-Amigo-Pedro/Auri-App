@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PlaceButton from '../../atoms/place-button'
 import { Text } from '../../atoms/text/styles'
 import Header from '../../molecules/header'
@@ -5,6 +6,8 @@ import MallIcon from '../../icons/mall'
 import { useRouter } from 'next/router'
 import * as S from './styles'
 import { Place } from '@/core/entities/place'
+import { CircularProgress } from '@mui/material'
+import { useEffect } from 'react'
 
 interface Props {
   places: Place[]
@@ -12,6 +15,12 @@ interface Props {
 
 const ChoosePlace = ({ places }: Props) => {
   const router = useRouter()
+
+  useEffect(() => {
+    if (!!places.length) return
+
+    router.push('/place')
+  }, [places])
 
   return (
     <S.GlobalContainer>
@@ -43,6 +52,9 @@ const ChoosePlace = ({ places }: Props) => {
       </S.WrapperTitle>
 
       <S.Container>
+        {!places.length && (
+          <CircularProgress color='inherit' style={{ width: '8rem', height: '8rem' }} />
+        )}
         {(places ?? []).map((place, index) => (
           <PlaceButton 
             key={`${place.id}-${index}`}
