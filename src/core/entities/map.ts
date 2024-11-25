@@ -1,3 +1,5 @@
+import { v4 } from "uuid"
+
 export class Map {
   id!: string
   placeId!: string
@@ -8,6 +10,7 @@ export class Map {
   static ofPlace (placeId: string) {
     const map = new Map()
 
+    map.id = v4()
     map.placeId = placeId
     map.floor = ''
     map.picture = '/black.png'

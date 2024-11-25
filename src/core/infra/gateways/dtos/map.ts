@@ -30,9 +30,11 @@ export class MapDTO {
 export class UpdateMapDTO {
   picture!: string
   floor!: string
+  id!: string
 
   static fromMap (map: Map): UpdateMapDTO {
     return {
+      id: map.id,
       floor: map.floor,
       picture: map.picture
     }
