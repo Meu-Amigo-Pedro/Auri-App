@@ -7,9 +7,9 @@ import useMutableEntity from "../../../hooks/use-mutable-entity"
 import { useUpdatePlace } from "../../../queries/place"
 import { Input } from "../../../atoms/input"
 import { Button } from "../../../atoms/button"
-import { Snackbar } from "@mui/material"
 import { useEffect } from "react"
 import { Map } from "@/core/entities/map"
+import SnackBar from "@/core/ui/molecules/snackbar"
 
 interface Props {
   place: Place
@@ -20,17 +20,13 @@ interface Props {
 const AddMap = ({ place, close }: Props) => {
   const map = useMutableEntity(Map.ofPlace(place.id))
 
-  const { updatePlace, isSuccess } = useUpdatePlace()
+  const { updatePlace, isSuccess, isLoading } = useUpdatePlace()
 
   useEffect(() => {
     if (!isSuccess) return
 
     close()
   }, [isSuccess])
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <S.GlobalContainer id="add-map">
@@ -70,11 +66,12 @@ const AddMap = ({ place, close }: Props) => {
           <S.ButtonsArea>
             <Button 
               label="Cancelar"
-              onClick={close}
               variant="gray"
+              onClick={close}
             />
             <Button 
               label="Confirmar"
+              variant="blue"
               onClick={() => {
                 place.addMap(map)
 
@@ -85,7 +82,19 @@ const AddMap = ({ place, close }: Props) => {
         </S.Section>
       </S.Container>
 
-      {isSuccess && <Snackbar autoHideDuration={2000} message={'Atualização concluída'}/>}
+      {isLoading && (
+        <SnackBar 
+          message='Atualizando...'
+          type='loading'
+        />
+      )}
+
+      {isSuccess && (
+        <SnackBar 
+          message='Atualização concluída'
+          type='success'
+        />
+      )}
     </S.GlobalContainer>
   )
 }

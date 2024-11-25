@@ -7,10 +7,16 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+  z-index: 1000;
 
   padding : 1.2rem 4rem;
 
+  background-color: #FFFFFF;
   border: #E5E8EB .1rem solid;
+
+  position: sticky;
+  top: 0;
+  left: 0;
 `
 
 export const WrapperTitleAndIcon = styled.div`

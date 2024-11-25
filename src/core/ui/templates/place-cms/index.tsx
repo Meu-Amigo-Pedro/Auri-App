@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCreatePlace, useDeletePlace, useGetPlace, useGetPlaces, useUpdatePlace } from "../../queries/place"
 import useMutableEntity from "../../hooks/use-mutable-entity"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { ImageInput } from "../../atoms/image-input"
 import ArrowLeftIcon from "../../icons/arrow-left"
 import SnackBar from "../../molecules/snackbar"
@@ -16,19 +16,18 @@ import AddMap from "./add-map"
 import * as S from "./styled"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import CloseIcon from "../../icons/close"
 
 interface Props {
   place?: Place
 }
 
 const PlaceCms = ({ place: givenPlace }: Props) => {
-  const router = useRouter()
   const [addingMap, setAddingMap] = useState(false)
+  const router = useRouter()
 
   const isEditing = !!givenPlace
   const _place = isEditing ? givenPlace : Place.Create()
-
-  const oldPlace = useMemo(() => _place, [])
 
   const place = useMutableEntity(_place)
 
@@ -64,134 +63,135 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
     <S.GlobalContainer>
       <Header 
         icon={<MallIcon />} 
-        title={_place.name}
+        title={place.name}
       />
 
-      <S.WrapperTitle>
-        {!!existingPlaces?.length && (
-          <Tap id='go-back-tap'>
-            <Link id='go-back' href='/'>
-              <ArrowLeftIcon />
-              Voltar
-            </Link>
-          </Tap>
-        )}
+      <div style={{ display: 'flex' }}>
+        <S.WrapperPlaceAndMapCms>
+          <S.WrapperTitle>
+            {!!existingPlaces?.length && (
+              <Tap id='go-back-tap'>
+                <Link id='go-back' href='/'>
+                  <ArrowLeftIcon />
+                  Voltar
+                </Link>
+              </Tap>
+            )}
 
-        <S.WrapperTitleAndSubtitle>
-          <Text
-            as='h1'
-            size={3.2}
-            fontFamily='Public Sans'
-            weight={700}
-            lineHeight={4}
-          >
-            {isEditing && 'Editando local'}
-            {!isEditing && 'Adicione um Local'}
-          </Text>
+            <S.WrapperTitleAndSubtitle>
+              <Text
+                as='h1'
+                size={3.2}
+                fontFamily='Public Sans'
+                weight={700}
+                lineHeight={4}
+              >
+                {isEditing && 'Editando local'}
+                {!isEditing && 'Adicione um Local'}
+              </Text>
 
-          {!isEditing && (
-            <Text
-              as='h2'
-              size={1.6}
-              fontFamily='Public Sans'
-              weight={400}
-              lineHeight={2.4}
-              color="#121417"
-            >
-              Esse local pode ser um shopping, uma faculdade ou qualquer tipo de ambiente fechado.
-            </Text>
-          )}
-        </S.WrapperTitleAndSubtitle>
-      </S.WrapperTitle>
+              {!isEditing && (
+                <Text
+                  as='h2'
+                  size={1.6}
+                  fontFamily='Public Sans'
+                  weight={400}
+                  lineHeight={2.4}
+                  color="#121417"
+                >
+                  Esse local pode ser um shopping, uma faculdade ou qualquer tipo de ambiente fechado.
+                </Text>
+              )}
+            </S.WrapperTitleAndSubtitle>
+          </S.WrapperTitle>
 
-      <S.WrapperEditPlace>
+          <S.WrapperEditPlace>
+            <S.Container>
+              <S.Section>
+                <Text 
+                  as='span'
+                  size={1.6}
+                  fontFamily='Public Sans'
+                  weight={400}
+                  lineHeight={2.4}
+                  color='#637887'
+                >
+                  Logo
+                </Text>
+                <ImageInput 
+                  defaultImage={place.logo}
+                  onChange={(logo) => { place.withLogo(logo) }}
+                  id="place-logo-input"
+                />
+                <Input 
+                  value={place.name}
+                  placeholder="Nome do local"
+                  onChange={(given) => { place.withName(given) }}
+                />
+                <S.ButtonsArea>
+                  <Button 
+                    label="Confirmar"
+                    variant="blue"
+                    onClick={() => {
+                      if (!isEditing) {
+                        createPlace({ place })
+                        return
+                      }
 
-        <S.Container>
-          <S.Section>
-            <Text 
-              as='span'
-              size={1.6}
-              fontFamily='Public Sans'
-              weight={400}
-              lineHeight={2.4}
-              color='#637887'
-            >
-              Logo
-            </Text>
-            <ImageInput 
-              defaultImage={place.logo}
-              onChange={(logo) => { place.withLogo(logo) }}
-              id="place-logo-input"
-            />
-            <Input 
-              value={place.name}
-              placeholder="Nome do local"
-              onChange={(given) => { place.withName(given) }}
-            />
-            <S.ButtonsArea>
-              <Button 
-                label="Cancelar"
-                variant="gray"
-                onClick={() => {
-                  place
-                    .withName(oldPlace.name)
-                    .withLogo(oldPlace.logo)
-                }}
-              />
-              <Button 
-                label="Confirmar"
-                variant="blue"
-                onClick={() => {
-                  if (!isEditing) {
-                    createPlace({ place })
-                    return
-                  }
+                      updatePlace({ place })
+                    }}
+                  />
+                  {isEditing && (
+                    <Button 
+                      label="Deletar"
+                      variant="red"
+                      onClick={() => {
+                        deletePlace({ place })
+                      }}
+                    />
+                  )}
+                </S.ButtonsArea>
+              </S.Section>
+            </S.Container>
 
-                  updatePlace({ place })
-                }}
-              />
-              {isEditing && (
+            {!addingMap &&
+              <S.Container>
+                {!!place.maps.length &&
+                  <S.MapsList hasOnlyOneChild={place.maps.length === 1}>
+                    {place.maps.map(map => 
+                      <li key={map.id}>
+                        <span>
+                          {map.floor}
+                        </span>
+
+                        <div className="icons-area">
+                          <CloseIcon />
+                        </div>
+                      </li>
+                    )}
+                  </S.MapsList>
+                }
+
                 <Button 
-                  label="Deletar"
-                  variant="red"
-                  onClick={() => {
-                    deletePlace({ place })
+                  label="Adicionar mapa"
+                  variant="blue"
+                  width="12rem"
+                  onClick={() => { 
+                    setAddingMap(true) 
                   }}
                 />
-              )}
-            </S.ButtonsArea>
-          </S.Section>
-        </S.Container>
-
-        {!addingMap &&
-          <S.Container>
-            {!!place.maps.length &&
-              <S.MapsList hasOnlyOneChild={place.maps.length === 1}>
-                {place.maps.map(map => 
-                  <li key={map.id}>
-                    <span>
-                      {map.floor}
-                    </span>
-
-                    <div className="icons-area">
-                      <span>X</span>
-                    </div>
-                  </li>
-                )}
-              </S.MapsList>
+              </S.Container>
             }
+          </S.WrapperEditPlace>
+        </S.WrapperPlaceAndMapCms>
 
-            <Button 
-              label="Adicionar mapa"
-              variant="blue"
-              width="12rem"
-              onClick={() => { 
-                setAddingMap(true) 
-              }}
-            />
-          </S.Container>
-        }
-      </S.WrapperEditPlace>
+        {addingMap && (
+          <AddMap 
+            place={place}
+            close={() => { setAddingMap(false) }}
+          />
+        )}
+      </div>
 
       {isLoadingCreate && (
         <SnackBar 
@@ -234,15 +234,6 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
           type='success'
         />
       )}
-
-      {addingMap && 
-        <AddMap 
-          close={() => { 
-            setAddingMap(false) 
-          }}
-          place={oldPlace}
-        />
-      }
     </S.GlobalContainer>
   )
 }

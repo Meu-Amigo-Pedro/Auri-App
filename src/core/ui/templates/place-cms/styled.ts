@@ -11,6 +11,10 @@ export const GlobalContainer = styled.div`
   }
 `
 
+export const WrapperPlaceAndMapCms = styled.div`
+  width: 100%;
+`
+
 export const WrapperEditPlace = styled.div`
   display: flex;
   align-items: flex-start;
