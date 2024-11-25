@@ -19,4 +19,12 @@ export const WrapperTitle = styled.div`
   align-items: center;
   padding: 5rem;
   width: 100%;
+  position: relative;
+`
+
+export const ContainerCreatePlaceButton = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

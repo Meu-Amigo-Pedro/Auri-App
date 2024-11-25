@@ -5,12 +5,12 @@ interface Props {
 
   onClick: () => void
 
-  variant?: S.ButtonVariant
+  variant: S.ButtonVariant
 
   width?: string
 }
 
-export const Button = ({ label, onClick, width, variant = 'blue' }: Props) => {
+export const Button = ({ label, onClick, width, variant }: Props) => {
   return (
     <S.ButtonContainer
       width={width ?? '8.4rem'}

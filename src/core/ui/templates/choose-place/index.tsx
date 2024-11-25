@@ -8,6 +8,7 @@ import * as S from './styles'
 import { Place } from '@/core/entities/place'
 import { CircularProgress } from '@mui/material'
 import { useEffect } from 'react'
+import { Button } from '../../atoms/button'
 
 interface Props {
   places: Place[]
@@ -50,6 +51,16 @@ const ChoosePlace = ({ places }: Props) => {
           Aonde estamos?
         </Text>
       </S.WrapperTitle>
+
+      <S.ContainerCreatePlaceButton>
+        <Button 
+          label='Criar local'
+          variant='blue'
+          onClick={() => {
+            router.push('/place')
+          }}
+        />
+      </S.ContainerCreatePlaceButton>
 
       <S.Container>
         {!places.length && (

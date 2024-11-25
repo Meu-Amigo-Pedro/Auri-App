@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCreatePlace, useDeletePlace, useGetPlace, useUpdatePlace } from "../../queries/place"
+import { useCreatePlace, useDeletePlace, useGetPlace, useGetPlaces, useUpdatePlace } from "../../queries/place"
 import useMutableEntity from "../../hooks/use-mutable-entity"
 import { useEffect, useMemo, useState } from "react"
 import { ImageInput } from "../../atoms/image-input"
@@ -32,6 +32,7 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
 
   const place = useMutableEntity(_place)
 
+  const { data: existingPlaces } = useGetPlaces()
   const { data: updatedPlace } = useGetPlace(place.id)
 
   const { createPlace, isSuccess: isSuccessCreate, isLoading: isLoadingCreate } = useCreatePlace()
@@ -67,7 +68,7 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
       />
 
       <S.WrapperTitle>
-        {isEditing && (
+        {!!existingPlaces?.length && (
           <Tap id='go-back-tap'>
             <Link id='go-back' href='/'>
               <ArrowLeftIcon />
@@ -124,20 +125,22 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
             />
             <Input 
               value={place.name}
+              placeholder="Nome do local"
               onChange={(given) => { place.withName(given) }}
             />
             <S.ButtonsArea>
               <Button 
                 label="Cancelar"
+                variant="gray"
                 onClick={() => {
                   place
                     .withName(oldPlace.name)
                     .withLogo(oldPlace.logo)
                 }}
-                variant="gray"
               />
               <Button 
                 label="Confirmar"
+                variant="blue"
                 onClick={() => {
                   if (!isEditing) {
                     createPlace({ place })
@@ -147,13 +150,15 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
                   updatePlace({ place })
                 }}
               />
-              <Button 
-                label="Deletar"
-                variant="red"
-                onClick={() => {
-                  deletePlace({ place })
-                }}
-              />
+              {isEditing && (
+                <Button 
+                  label="Deletar"
+                  variant="red"
+                  onClick={() => {
+                    deletePlace({ place })
+                  }}
+                />
+              )}
             </S.ButtonsArea>
           </S.Section>
         </S.Container>
@@ -178,6 +183,7 @@ const PlaceCms = ({ place: givenPlace }: Props) => {
 
             <Button 
               label="Adicionar mapa"
+              variant="blue"
               width="12rem"
               onClick={() => { 
                 setAddingMap(true) 
