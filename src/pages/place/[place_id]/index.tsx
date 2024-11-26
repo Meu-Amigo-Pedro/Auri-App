@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import dynamic from 'next/dynamic';
-import HeaderApp from '../header-app';
+import HeaderApp from '../../header-app';
 import LoadingSkeleton from '@/core/ui/molecules/skeleton';
 import {  GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { iocContainer } from '@/core/ioc';
