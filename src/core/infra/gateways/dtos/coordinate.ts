@@ -1,4 +1,4 @@
-import { Coordinate } from "@/core/entities/coordinate"
+import { Coordinate } from '@/core/entities/coordinate'
 
 export class CoordinateDTO {
   id!: string

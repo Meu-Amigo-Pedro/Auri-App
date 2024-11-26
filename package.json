@@ -21,7 +21,8 @@
     "react-query": "^3.39.3",
     "reflect-metadata": "^0.2.2",
     "styled-components": "^6.1.13",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

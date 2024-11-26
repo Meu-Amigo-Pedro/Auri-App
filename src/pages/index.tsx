@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GetServerSidePropsResult } from "next";
-import { IPlaceGateway } from "@/core/infra/gateways/contracts/place";
-import LoadingSkeleton from "@/core/ui/molecules/skeleton";
-import { iocContainer } from "@/core/ioc";
-import HeaderApp from "./header-app";
-import dynamic from "next/dynamic";
-import { PlaceDTO } from "@/core/infra/gateways/dtos/place";
+import { GetServerSidePropsResult } from 'next';
+import { IPlaceGateway } from '@/core/infra/gateways/contracts/place';
+import LoadingSkeleton from '@/core/ui/molecules/skeleton';
+import { iocContainer } from '@/core/ioc';
+import HeaderApp from './header-app';
+import dynamic from 'next/dynamic';
+import { PlaceDTO } from '@/core/infra/gateways/dtos/place';
 
-const ChoosePlace = dynamic(async () => import("@/core/ui/templates/choose-place"), {
+const ChoosePlace = dynamic(async () => import('@/core/ui/templates/choose-place'), {
   loading: LoadingSkeleton,
   ssr: false,
 });

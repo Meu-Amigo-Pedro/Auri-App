@@ -1,5 +1,5 @@
-import { Place } from "@/core/entities/place"
-import { MapDTO, UpdateMapDTO } from "./map"
+import { Place } from '@/core/entities/place'
+import { MapDTO, UpdateMapDTO } from './map'
 
 export class PlaceDTO {
   id!: string

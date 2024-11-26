@@ -1,22 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCreatePlace, useDeletePlace, useGetPlace, useGetPlaces, useUpdatePlace } from "../../queries/place"
-import useMutableEntity from "../../hooks/use-mutable-entity"
-import { useEffect, useState } from "react"
-import { ImageInput } from "../../atoms/image-input"
-import ArrowLeftIcon from "../../icons/arrow-left"
-import SnackBar from "../../molecules/snackbar"
-import { Text } from "../../atoms/text/styles"
-import { Place } from "@/core/entities/place"
-import Header from "../../molecules/header"
-import { Button } from "../../atoms/button"
-import Tap from "../../atoms/animation/tap"
-import { Input } from "../../atoms/input"
-import MallIcon from "../../icons/mall"
-import AddMap from "./add-map"
-import * as S from "./styled"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import CloseIcon from "../../icons/close"
+import { useCreatePlace, useDeletePlace, useGetPlace, useGetPlaces, useUpdatePlace } from '../../queries/place'
+import useMutableEntity from '../../hooks/use-mutable-entity'
+import { useEffect, useState } from 'react'
+import { ImageInput } from '../../atoms/image-input'
+import ArrowLeftIcon from '../../icons/arrow-left'
+import SnackBar from '../../molecules/snackbar'
+import { Text } from '../../atoms/text/styles'
+import { Place } from '@/core/entities/place'
+import Header from '../../molecules/header'
+import { Button } from '../../atoms/button'
+import Tap from '../../atoms/animation/tap'
+import { Input } from '../../atoms/input'
+import MallIcon from '../../icons/mall'
+import AddMap from './add-map'
+import * as S from './styled'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import CloseIcon from '../../icons/close'
 
 interface Props {
   place?: Place

@@ -1,8 +1,8 @@
-import { inject, injectable } from "inversify"
-import { IDirectionPointGateway } from "./contracts/direction-point"
-import { IHttpClient } from "../http/contracts/http-client"
-import { DirectionPoint } from "@/core/entities/direction-point"
-import { DirectionPointDTO, MutateDirectionPointDTO } from "./dtos/direction-point"
+import { inject, injectable } from 'inversify'
+import { IDirectionPointGateway } from './contracts/direction-point'
+import { IHttpClient } from '../http/contracts/http-client'
+import { DirectionPoint } from '@/core/entities/direction-point'
+import { DirectionPointDTO, MutateDirectionPointDTO } from './dtos/direction-point'
 
 @injectable()
 export class DirectionPointGateway implements IDirectionPointGateway {

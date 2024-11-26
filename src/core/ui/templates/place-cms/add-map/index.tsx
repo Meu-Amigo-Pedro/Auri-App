@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Place } from "@/core/entities/place"
+import { Place } from '@/core/entities/place'
 import { Text } from '../../../atoms/text/styles'
 import * as S from './styled'
-import { ImageInput } from "../../../atoms/image-input"
-import useMutableEntity from "../../../hooks/use-mutable-entity"
-import { useUpdatePlace } from "../../../queries/place"
-import { Input } from "../../../atoms/input"
-import { Button } from "../../../atoms/button"
-import { useEffect } from "react"
-import { Map } from "@/core/entities/map"
-import SnackBar from "@/core/ui/molecules/snackbar"
+import { ImageInput } from '../../../atoms/image-input'
+import useMutableEntity from '../../../hooks/use-mutable-entity'
+import { useUpdatePlace } from '../../../queries/place'
+import { Input } from '../../../atoms/input'
+import { Button } from '../../../atoms/button'
+import { useEffect } from 'react'
+import { Map } from '@/core/entities/map'
+import SnackBar from '@/core/ui/molecules/snackbar'
 
 interface Props {
   place: Place

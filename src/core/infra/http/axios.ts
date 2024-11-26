@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
-import { HttpClientInput, IHttpClient } from "./contracts/http-client";
+import axios from 'axios';
+import { HttpClientInput, IHttpClient } from './contracts/http-client';
 
 export class AxiosHttpClient implements IHttpClient {
   async get ({ url, params }: HttpClientInput): Promise<any> {

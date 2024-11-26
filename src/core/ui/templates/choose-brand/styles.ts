@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const GlobalContainer = styled.div`
   width: 100vw;

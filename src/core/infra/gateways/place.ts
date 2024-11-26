@@ -1,8 +1,8 @@
-import { Place } from "@/core/entities/place"
-import { IPlaceGateway } from "./contracts/place"
-import { inject, injectable } from "inversify"
-import { IHttpClient } from "../http/contracts/http-client"
-import { CreatePlaceDTO, PlaceDTO, UpdatePlaceDTO } from "./dtos/place"
+import { Place } from '@/core/entities/place'
+import { IPlaceGateway } from './contracts/place'
+import { inject, injectable } from 'inversify'
+import { IHttpClient } from '../http/contracts/http-client'
+import { CreatePlaceDTO, PlaceDTO, UpdatePlaceDTO } from './dtos/place'
 
 @injectable()
 export class PlaceGateway implements IPlaceGateway {

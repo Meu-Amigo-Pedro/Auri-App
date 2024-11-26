@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IDirectionPointGateway } from "@/core/infra/gateways/contracts/direction-point"
-import { useDeps } from "../hooks/use-deps"
-import { useMutation, useQuery, useQueryClient } from "react-query"
-import { DirectionPoint } from "@/core/entities/direction-point"
-import { AxiosError } from "axios"
+import { IDirectionPointGateway } from '@/core/infra/gateways/contracts/direction-point'
+import { useDeps } from '../hooks/use-deps'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { DirectionPoint } from '@/core/entities/direction-point'
+import { AxiosError } from 'axios'
 
 export const useGetDirectionPoints = (mapId: string) => {
   const directionPointGateway = useDeps<IDirectionPointGateway>('DirectionPointGateway')

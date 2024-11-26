@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { BaseAnimationIconProps } from "./base";
+import { BaseAnimationIconProps } from './base';
 
 const CloseIcon = (props: BaseAnimationIconProps) => (
   <motion.svg

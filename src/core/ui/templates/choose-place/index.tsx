@@ -7,15 +7,19 @@ import { useRouter } from 'next/router'
 import * as S from './styles'
 import { Place } from '@/core/entities/place'
 import { CircularProgress } from '@mui/material'
-import { useEffect } from 'react'
+import { createRef, useEffect } from 'react'
 import { Button } from '../../atoms/button'
+import { useModals } from '../../context/modals/context'
 
 interface Props {
   places: Place[]
 }
 
 const ChoosePlace = ({ places }: Props) => {
+  const openModal = useModals((state) => state.open)
   const router = useRouter()
+
+  const placesRef = places.map(() => createRef<HTMLDivElement>())
 
   useEffect(() => {
     if (!!places.length) return
@@ -66,15 +70,28 @@ const ChoosePlace = ({ places }: Props) => {
         {!places.length && (
           <CircularProgress color='inherit' style={{ width: '8rem', height: '8rem' }} />
         )}
-        {(places ?? []).map((place, index) => (
-          <PlaceButton 
-            key={`${place.id}-${index}`}
-            placeLogo={place.logo}
-            placeName={place.name}
-            isSelected={false}
-            onClick={() => { router.push(`/place/${place.id}`) }}
-          />
-        ))}
+        {(places ?? []).map((place, index) => {
+          const ref = placesRef[index]
+
+          return (
+            <PlaceButton 
+              key={`${place.id}-${index}`}
+              ref={ref}
+              placeLogo={place.logo}
+              placeName={place.name}
+              isSelected={false}
+              onClick={() => { 
+                openModal('place-options', { 
+                  place,
+                  position: {
+                    x: (ref.current?.getBoundingClientRect().top ?? 0) + 460,
+                    y: (ref.current?.getBoundingClientRect().left ?? 0) + 485
+                  } 
+                })
+              }}
+            />
+          )
+        })}
       </S.Container>
     </S.GlobalContainer>
   )

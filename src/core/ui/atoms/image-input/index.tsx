@@ -1,5 +1,5 @@
-import { Base64Converter } from "@/core/infra/utils/base-64-converter"
-import { ChangeEvent, useState } from "react"
+import { Base64Converter } from '@/core/infra/utils/base-64-converter'
+import { ChangeEvent, useState } from 'react'
 import * as S from './styled'
 
 interface Props {

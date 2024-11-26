@@ -1,6 +1,6 @@
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
-import * as S from "../../templates/choose-place/styles";
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import * as S from '../../templates/choose-place/styles';
 
 const LoadingSkeleton = () => {
   return (

@@ -1,4 +1,4 @@
-import { DirectionPoint } from "@/core/entities/direction-point";
+import { DirectionPoint } from '@/core/entities/direction-point';
 
 export interface IDirectionPointGateway {
   create (directionPoint: DirectionPoint): Promise<void>

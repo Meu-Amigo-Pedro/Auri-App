@@ -1,5 +1,5 @@
-import { DirectionPoint } from "@/core/entities/direction-point"
-import { CoordinateDTO } from "./coordinate"
+import { DirectionPoint } from '@/core/entities/direction-point'
+import { CoordinateDTO } from './coordinate'
 
 export class DirectionPointDTO {
   id!: string

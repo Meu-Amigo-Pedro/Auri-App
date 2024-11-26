@@ -1,5 +1,5 @@
-import { motion } from "motion/react";
-import styled, { css } from "styled-components";
+import { motion } from 'motion/react';
+import styled, { css } from 'styled-components';
 
 export type ButtonVariant = 'blue' | 'gray' | 'red'
 

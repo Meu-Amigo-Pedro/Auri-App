@@ -1,4 +1,4 @@
-import { Map } from "@/core/entities/map"
+import { Map } from '@/core/entities/map'
 
 export class MapDTO {
   id!: string

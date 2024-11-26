@@ -1,8 +1,8 @@
-import { IPlaceGateway } from "@/core/infra/gateways/contracts/place"
-import { useDeps } from "../hooks/use-deps"
-import { useMutation, useQuery, useQueryClient } from "react-query"
-import { Place } from "@/core/entities/place"
-import { AxiosError } from "axios"
+import { IPlaceGateway } from '@/core/infra/gateways/contracts/place'
+import { useDeps } from '../hooks/use-deps'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { Place } from '@/core/entities/place'
+import { AxiosError } from 'axios'
 
 export const useGetPlaces = () => {
   const placeGateway = useDeps<IPlaceGateway>('PlaceGateway')
