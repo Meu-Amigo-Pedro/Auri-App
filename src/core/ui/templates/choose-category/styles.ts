@@ -30,4 +30,5 @@ export const WrapperCategoriesButton = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 2rem 0rem 2rem 11rem;
+  gap: 1.2rem;
 `

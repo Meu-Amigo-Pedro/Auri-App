@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import ArrowLeftIcon from '../../icons/arrow-left'
 import { Place } from '@/core/entities/place'
@@ -36,8 +37,8 @@ const CategoryCms = ({ place, category: givenCategory }: Props) => {
 
   const category = useMutableEntity(_category)
 
-  const { createCategory, isSuccess: isSuccessCreate, isLoading: isLoadingCreate, error: errorCreate } = useCreateCategory()
-  const { deleteCategory, isSuccess: isSuccessDelete, isLoading: isLoadingDelete, error: errorDelete } = useDeleteCategory()
+  const { createCategory, isSuccess: isSuccessCreate, isLoading: isLoadingCreate } = useCreateCategory()
+  const { deleteCategory, isSuccess: isSuccessDelete, isLoading: isLoadingDelete } = useDeleteCategory()
 
   const getPosition = (position: 'top' | 'left') => {
     if (!colorPickerRef || !colorPickerRef.current)
@@ -50,7 +51,7 @@ const CategoryCms = ({ place, category: givenCategory }: Props) => {
   }
 
   const goBackHandle = () => {
-    router.push(`/place/${place.id}`)
+    router.push(`/place/${place.id}/category/choose`)
   }
 
   useEffect(() => {
@@ -137,7 +138,9 @@ const CategoryCms = ({ place, category: givenCategory }: Props) => {
             <Button 
               label='Deletar'
               variant='red'
-              onClick={() => {}}
+              onClick={() => {
+                deleteCategory({ category })
+              }}
               width='10rem'
             />
           )}

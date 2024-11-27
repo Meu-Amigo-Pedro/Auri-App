@@ -47,7 +47,7 @@ export class CategoryGateway implements ICategoryGateway {
   async delete (categoryId: string): Promise<void> {
     await this.httpClient.delete({
       url: `${this.BASE_URL}/category`,
-      params: { categoryId }
+      params: { id: categoryId }
     })
   }
 }
