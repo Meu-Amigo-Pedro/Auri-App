@@ -75,7 +75,7 @@ const CategoryCms = ({ place, category: givenCategory }: Props) => {
 
       <S.WrapperTitle>
         <Tap id='go-back-tap'>
-          <Link id='go-back' href={`/place/${place.id}/category/choose`}>
+          <Link id='go-back' href={`/place/${place.id}/categories`}>
             <ArrowLeftIcon />
             Voltar
           </Link>

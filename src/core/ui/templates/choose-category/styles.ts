@@ -10,12 +10,28 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 11rem;
+
+  #go-back-tap {
+    position: fixed; 
+    left: 4rem;
+  }
+
+  #go-back {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.8rem;
+    font-family: 'Public Sans';
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
+  }
 `
 
 export const CategoryHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2rem 0rem 2rem 11rem;
+  padding: 6rem 0rem 2rem 11rem;
 `
 
 export const ResponseContainer = styled.div`

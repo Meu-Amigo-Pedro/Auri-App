@@ -56,18 +56,18 @@ const ChoosePlace = ({ places }: Props) => {
         >
           Aonde estamos?
         </Text>
-      </S.WrapperTitle>
 
-      <S.ContainerCreatePlaceButton>
-        <Button 
-          label='Adicione um local'
-          variant='blue'
-          width='20rem'
-          onClick={() => {
-            router.push('/place')
-          }}
-        />
-      </S.ContainerCreatePlaceButton>
+        <S.ContainerCreatePlaceButton>
+          <Button 
+            label='Adicione um local'
+            variant='blue'
+            width='20rem'
+            onClick={() => {
+              router.push('/place')
+            }}
+          />
+        </S.ContainerCreatePlaceButton>
+      </S.WrapperTitle>
 
       <S.Container>
         {!places.length && (
@@ -80,14 +80,14 @@ const ChoosePlace = ({ places }: Props) => {
             {
               label: 'Escolher Local',
               onSelect: () => {
-                router.push(`/place/${place.id}/category/choose`)
+                router.push(`/place/${place.id}/categories`)
                 closeModal()
               }
             },
             {
               label: 'Editar Local',
               onSelect: () => {
-                router.push(`/place/${place.id}`)
+                router.push(`/place/${place.id}/update`)
                 closeModal()
               }
             }

@@ -11,6 +11,9 @@ import { useRouter } from 'next/router'
 import { Option } from '../modals/select-options'
 import { useModals } from '../../context/modals/context'
 import { createRef } from 'react'
+import Tap from '../../atoms/animation/tap'
+import Link from 'next/link'
+import ArrowLeftIcon from '../../icons/arrow-left'
 
 interface Props {
   place: Place
@@ -33,6 +36,13 @@ const ChooseCategory = ({ place }: Props) => {
       />
 
       <S.Container>
+        <Tap id='go-back-tap'>
+          <Link id='go-back' href='/'>
+            <ArrowLeftIcon />
+            Escolher outro local
+          </Link>
+        </Tap>
+
         <S.CategoryHeader>
           <Text
             as='h2'
