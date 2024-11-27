@@ -18,7 +18,7 @@ export const Container = styled(motion.div)<{ positionX: number, positionY: numb
   align-items: center;
   justify-content: center;
   border-radius: .8rem;
-  background-color: #f4f4f4;
+  background-color: #fff;
   
   box-shadow: 0 .8rem .6rem 0 rgba(0, 0, 0, 0.2);
 

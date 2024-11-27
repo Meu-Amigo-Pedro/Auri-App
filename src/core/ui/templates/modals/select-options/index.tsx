@@ -1,42 +1,22 @@
 import { useModals } from '@/core/ui/context/modals/context'
 import * as S from './styles'
-import { Place } from '@/core/entities/place'
 import Text from '@/core/ui/atoms/text'
-import { useRouter } from 'next/router'
 
-type Options = { 
+export type Option = { 
   label: string,
   onSelect: () => void
 }
 
 interface Props {
-  place: Place
+  options: Option[]
   position: { 
     x: number
     y: number
   }
 }
 
-const PlaceConfigModal = ({ place, position }: Props) => {
-  const router = useRouter()
+const SelectOptionsModal = ({ options, position }: Props) => {
   const close = useModals((state) => state.close)
-  
-  const options: Options[] = [
-    {
-      label: 'Escolher Local',
-      onSelect: () => {
-        router.push(`/place/${place.id}/category/choose`)
-        close()
-      }
-    },
-    {
-      label: 'Editar Local',
-      onSelect: () => {
-        router.push(`/place/${place.id}`)
-        close()
-      }
-    }
-  ]
 
   return (
     <S.GlobalContainer onClick={close}>
@@ -70,4 +50,4 @@ const PlaceConfigModal = ({ place, position }: Props) => {
   )
 }
 
-export default PlaceConfigModal
+export default SelectOptionsModal

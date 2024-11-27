@@ -8,6 +8,9 @@ import CategoryButton from '../../atoms/category-button'
 import { CircularProgress } from '@mui/material'
 import { Button } from '../../atoms/button'
 import { useRouter } from 'next/router'
+import { Option } from '../modals/select-options'
+import { useModals } from '../../context/modals/context'
+import { createRef } from 'react'
 
 interface Props {
   place: Place
@@ -15,8 +18,12 @@ interface Props {
 
 const ChooseCategory = ({ place }: Props) => {
   const router = useRouter()
+  const openModal = useModals((state) => state.open)
+  const closeModal = useModals((state) => state.close)
 
   const { data: categories, isSuccess, isLoading } = useGetCategories(place.id)
+
+  const categoriesRef = (categories ?? []).map(() => createRef<HTMLDivElement>())
 
   return (
     <S.GlobalContainer>
@@ -67,15 +74,42 @@ const ChooseCategory = ({ place }: Props) => {
           )}
 
         <S.WrapperCategoriesButton>
-          {(categories ?? []).map((category, index) => (
-            <CategoryButton 
-              key={`${category.id}-${index}`}
-              category={category}
-              onClick={() => { 
-                router.push(`/place/${place.id}/category/${category.id}`)
-              }}
-            />
-          ))}
+          {(categories ?? []).map((category, index) => {
+            const ref = categoriesRef[index]
+            
+            const options: Option[] = [
+              {
+                label: 'Escolher Categoria',
+                onSelect: () => {
+                  // router.push(`/place/${place.id}/category/${category.id}`)
+                  closeModal()
+                }
+              },
+              {
+                label: 'Editar Categoria',
+                onSelect: () => {
+                  router.push(`/place/${place.id}/category/${category.id}`)
+                  closeModal()
+                }
+              }
+            ]
+
+            return (
+              <CategoryButton 
+                key={`${category.id}-${index}`}
+                category={category}
+                onClick={() => { 
+                  openModal('select-options', {
+                    options,
+                    position: {
+                      x: (ref.current?.getBoundingClientRect().top ?? 0) + 460,
+                      y: (ref.current?.getBoundingClientRect().left ?? 0) + 485
+                    }
+                  })
+                }}
+              />
+            )
+          })}
         </S.WrapperCategoriesButton>
       </S.Container>
     </S.GlobalContainer>

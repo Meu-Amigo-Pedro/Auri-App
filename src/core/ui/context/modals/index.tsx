@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import PlaceConfigModal from '../../templates/modals/place-config'
 import { createElement } from 'react'
 import { useModals } from './context'
+import SelectOptionsModal from '../../templates/modals/select-options'
 
-export type ModalIds = 'place-options'
+export type ModalIds = 'select-options'
 
 const ComponentModals: Record<ModalIds, any> = {
-  'place-options': PlaceConfigModal
+  'select-options': SelectOptionsModal
 }
 
 const Modals = () => {

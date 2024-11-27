@@ -10,6 +10,7 @@ import { CircularProgress } from '@mui/material'
 import { createRef, useEffect } from 'react'
 import { Button } from '../../atoms/button'
 import { useModals } from '../../context/modals/context'
+import { Option } from '../modals/select-options'
 
 interface Props {
   places: Place[]
@@ -17,6 +18,7 @@ interface Props {
 
 const ChoosePlace = ({ places }: Props) => {
   const openModal = useModals((state) => state.open)
+  const closeModal = useModals((state) => state.close)
   const router = useRouter()
 
   const placesRef = places.map(() => createRef<HTMLDivElement>())
@@ -74,6 +76,23 @@ const ChoosePlace = ({ places }: Props) => {
         {(places ?? []).map((place, index) => {
           const ref = placesRef[index]
 
+          const options: Option[] = [
+            {
+              label: 'Escolher Local',
+              onSelect: () => {
+                router.push(`/place/${place.id}/category/choose`)
+                closeModal()
+              }
+            },
+            {
+              label: 'Editar Local',
+              onSelect: () => {
+                router.push(`/place/${place.id}`)
+                closeModal()
+              }
+            }
+          ]
+
           return (
             <PlaceButton 
               key={`${place.id}-${index}`}
@@ -82,8 +101,8 @@ const ChoosePlace = ({ places }: Props) => {
               placeName={place.name}
               isSelected={false}
               onClick={() => { 
-                openModal('place-options', { 
-                  place,
+                openModal('select-options', { 
+                  options,
                   position: {
                     x: (ref.current?.getBoundingClientRect().top ?? 0) + 460,
                     y: (ref.current?.getBoundingClientRect().left ?? 0) + 485
