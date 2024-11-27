@@ -1,3 +1,5 @@
+import * as uuid from 'uuid'
+
 export class Category {
   id!: string
   name!: string
@@ -5,6 +7,19 @@ export class Category {
   picture!: string
   colour!: string
   order!: number
+
+  static Create (placeId: string) {
+    const category = new Category()
+
+    category.id = uuid.v4()
+    category.name = ''
+    category.placeId = placeId
+    category.picture = '/black.png'
+    category.colour = '#000'
+    category.order = 0
+
+    return category
+  }
 
   withId (id: string) {
     this.id = id

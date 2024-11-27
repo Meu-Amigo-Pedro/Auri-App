@@ -58,8 +58,9 @@ const ChoosePlace = ({ places }: Props) => {
 
       <S.ContainerCreatePlaceButton>
         <Button 
-          label='Criar local'
+          label='Adicione um local'
           variant='blue'
+          width='20rem'
           onClick={() => {
             router.push('/place')
           }}

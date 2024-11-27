@@ -6,12 +6,16 @@ import Text from '../../atoms/text'
 import { useGetCategories } from '../../queries/category'
 import CategoryButton from '../../atoms/category-button'
 import { CircularProgress } from '@mui/material'
+import { Button } from '../../atoms/button'
+import { useRouter } from 'next/router'
 
 interface Props {
   place: Place
 }
 
 const ChooseCategory = ({ place }: Props) => {
+  const router = useRouter()
+
   const { data: categories, isSuccess, isLoading } = useGetCategories(place.id)
 
   return (
@@ -31,6 +35,15 @@ const ChooseCategory = ({ place }: Props) => {
           >
             Categorias
           </Text>
+
+          <Button 
+            variant='blue'
+            label='Criar categoria'
+            onClick={() => {
+              router.push(`/place/${place.id}/category`)
+            }}
+            width='20rem'
+          />
         </S.CategoryHeader>
 
           {isLoading && (
@@ -53,12 +66,17 @@ const ChooseCategory = ({ place }: Props) => {
             </S.ResponseContainer>
           )}
 
+        <S.WrapperCategoriesButton>
           {(categories ?? []).map((category, index) => (
             <CategoryButton 
               key={`${category.id}-${index}`}
               category={category}
+              onClick={() => { 
+                router.push(`/place/${place.id}/category/${category.id}`)
+              }}
             />
           ))}
+        </S.WrapperCategoriesButton>
       </S.Container>
     </S.GlobalContainer>
   )

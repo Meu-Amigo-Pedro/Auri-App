@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import dynamic from 'next/dynamic';
-import HeaderApp from '../../header-app';
+import HeaderApp from '../../../header-app';
 import {  GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
-import { iocContainer } from '@/core/ioc';
 import { IPlaceGateway } from '@/core/infra/gateways/contracts/place';
 import { PlaceDTO } from '@/core/infra/gateways/dtos/place';
+import { iocContainer } from '@/core/ioc';
 
-const ChooseCategory = dynamic(async () => import('@/core/ui/templates/choose-category'), {
+const CategoryCms = dynamic(async () => import('@/core/ui/templates/category-cms'), {
   ssr: false
 })
 
@@ -15,24 +15,24 @@ interface Props {
   place: PlaceDTO
 }
 
-const ChooseCategoryPage = ({ place }: Props) => {
+const CategoryCmsPage = ({ place }: Props) => {
   return (
     <>
       <HeaderApp />
-      <ChooseCategory place={PlaceDTO.toPlace(place)} />
+      <CategoryCms place={PlaceDTO.toPlace(place)} />
     </>
   );
 }
 
 export async function getServerSideProps ({ params }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> {
-  const gateway = iocContainer.get<IPlaceGateway>('PlaceGateway')
+  const placeGateway = iocContainer.get<IPlaceGateway>('PlaceGateway')
 
   try {
-    const place = await gateway.getOne(params?.place_id as string)
+    const place = await placeGateway.getOne(params?.place_id as string)
 
     return {
       props: {
-        place: PlaceDTO.fromPlace(place)
+        place: PlaceDTO.fromPlace(place),
       }
     }
   } catch (error) {
@@ -46,4 +46,4 @@ export async function getServerSideProps ({ params }: GetServerSidePropsContext)
   }
 }
 
-export default ChooseCategoryPage
+export default CategoryCmsPage

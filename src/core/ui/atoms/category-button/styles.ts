@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -7,11 +8,12 @@ export const Container = styled.div`
   gap: 1.2rem;
 `
 
-export const Image = styled.div`
+export const Image = styled(motion.div)`
   width: 17.6rem;
   height: 17.6rem;
 
   border-radius: 1.2rem;
+  cursor: pointer;
 
   img {
     width: 100%;

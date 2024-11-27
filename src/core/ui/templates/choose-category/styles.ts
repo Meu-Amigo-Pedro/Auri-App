@@ -14,14 +14,20 @@ export const Container = styled.div`
 
 export const CategoryHeader = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   padding: 2rem 0rem 2rem 11rem;
 `
 
 export const ResponseContainer = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const WrapperCategoriesButton = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 0rem 2rem 11rem;
 `

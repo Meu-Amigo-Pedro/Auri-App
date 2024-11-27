@@ -5,12 +5,16 @@ import * as S from './styles'
 
 interface Props {
   category: Category
+  onClick: () => void
 }
 
-const CategoryButton = ({ category }: Props) => {
+const CategoryButton = ({ category, onClick }: Props) => {
   return (
-    <S.Container>
-      <S.Image>
+    <S.Container onClick={onClick}>
+      <S.Image
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
         <img
           src={category.picture}
           alt='Imagem de categoria'

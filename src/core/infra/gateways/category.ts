@@ -21,6 +21,14 @@ export class CategoryGateway implements ICategoryGateway {
     return dtos.map(CategoryDTO.toCategory)
   }
   
+  async getOne (categoryId: string): Promise<Category> {
+    const dto = await this.httpClient.get({
+      url: `${this.BASE_URL}/category/${categoryId}`
+    })
+
+    return CategoryDTO.toCategory(dto)
+  }
+
   async create (category: Category): Promise<void> {
     await this.httpClient.post({
       url: `${this.BASE_URL}/category`,

@@ -2,7 +2,7 @@
 import * as S from './styles'
 
 interface Props {
-  id: string
+  id?: string
   children: any
 }
 

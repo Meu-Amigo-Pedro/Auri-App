@@ -25,7 +25,7 @@ const PlaceConfigModal = ({ place, position }: Props) => {
     {
       label: 'Escolher Local',
       onSelect: () => {
-        router.push(`/place/${place.id}/category`)
+        router.push(`/place/${place.id}/category/choose`)
         close()
       }
     },
