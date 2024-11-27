@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
-import { Category } from '@/core/entities/category'
 import Text from '../text'
 import * as S from './styles'
 
 interface Props {
-  category: Category
+  data: any
   onClick: () => void
 }
 
-const CategoryButton = ({ category, onClick }: Props) => {
+const ChooseButton = ({ data, onClick }: Props) => {
   return (
     <S.Container onClick={onClick}>
       <S.Image
@@ -16,7 +16,7 @@ const CategoryButton = ({ category, onClick }: Props) => {
         whileTap={{ scale: 0.9 }}
       >
         <img
-          src={category.picture}
+          src={data.picture}
           alt='Imagem de categoria'
         />
       </S.Image>
@@ -27,10 +27,10 @@ const CategoryButton = ({ category, onClick }: Props) => {
         lineHeight={2.4}
         fontFamily='Public Sans'
       >
-        {category.name}
+        {data.name}
       </Text>
     </S.Container>
   )
 }
 
-export default CategoryButton
+export default ChooseButton

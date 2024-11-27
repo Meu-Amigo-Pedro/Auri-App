@@ -28,7 +28,7 @@ export const Container = styled.div`
   }
 `
 
-export const CategoryHeader = styled.div`
+export const WrapperTitle = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 6rem 0rem 2rem 11rem;
@@ -36,13 +36,13 @@ export const CategoryHeader = styled.div`
 
 export const ResponseContainer = styled.div`
   width: 100%;
-  height: 75vh;
+  height: 65vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
-export const WrapperCategoriesButton = styled.div`
+export const WrapperButton = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 2rem 0rem 2rem 11rem;

@@ -2,20 +2,21 @@ import { useModals } from '@/core/ui/context/modals/context'
 import * as S from './styles'
 import Text from '@/core/ui/atoms/text'
 
-export type Option = { 
+export type Option<T> = { 
   label: string,
-  onSelect: () => void
+  onSelect: (data: T) => void
 }
 
-interface Props {
-  options: Option[]
+interface Props<T> {
+  data: T,
+  options: Option<T>[]
   position: { 
     x: number
     y: number
   }
 }
 
-const SelectOptionsModal = ({ options, position }: Props) => {
+const SelectOptionsModal = <T,>({ options, data, position }: Props<T>) => {
   const close = useModals((state) => state.close)
 
   return (
@@ -33,7 +34,7 @@ const SelectOptionsModal = ({ options, position }: Props) => {
               key={index} 
               isTheLastItem={(options.length - 1) === index} 
               whileTap={{ scale: 0.9 }}
-              onClick={option.onSelect}
+              onClick={() => { option.onSelect(data) }}
             >
               <Text
                 size={1.8}
